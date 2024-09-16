@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClassesRequest;
 use App\Http\Requests\UpdateClassesRequest;
 use App\Models\Classes;
+use App\Http\Resources\ClassResource;
 
 class ClassesController extends Controller
 {
@@ -13,8 +14,13 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        return inertia('Classes/Index', [
 
+        $query = Classes::query();
+
+        $classes = $query->paginate(10)->onEachSide(1);
+
+        return inertia('Classes/Index', [
+            'classes' => ClassResource::collection($classes)
         ]);
     }
 
