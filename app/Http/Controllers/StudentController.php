@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
+    public $smsService;
+    public function __construct(SmsService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -121,17 +128,19 @@ class StudentController extends Controller
 
     try {
         $otpMessage = "Your OTP code is: " . $otp;
+        $countryCode = $existingStudent->c_code; // Add your country code here (94 for Sri Lanka)
+        $cleanPhone = preg_replace('/[^0-9]/', '', $phoneNumber); // Clean phone number (remove non-numeric characters)
 
-        // $response = $this->smsService->sendSingleSms("QKSendDemo", $phoneNumber, $otpMessage);
+        // Combine country code and phone number
+        $fullPhone = $countryCode . $cleanPhone;
+
+        $this->smsService->sendSingleSms($fullPhone, $otpMessage);
 
         session(['otp' => Hash::make($otp), 'forgotPhoneNumber' => $phoneNumber]);
 
-        // // Cache rate limit for 1 minute
-        // Cache::put('otp_request:' . $phoneNumber, true, now()->addMinutes(1));
-
         return redirect()->route('student-comfirmOtpView')->with('error', $otpMessage);;
     } catch (\Exception $e) {
-        \Log::error('Failed to send OTP', [
+        Log::error('Failed to send OTP', [
             'error' => $e->getMessage(),
             'phone_number' => $phoneNumber,
         ]);
@@ -159,12 +168,12 @@ class StudentController extends Controller
             $user->password = Hash::make($password);
             $user->save();
 
+            $countryCode = $user->c_code;
+            $cleanPhone = preg_replace('/[^0-9]/', '', session('forgotPhoneNumber'));
+            $fullPhone = $countryCode . $cleanPhone;
+            $this->smsService->sendSingleSms($fullPhone, $otpMessage);
 
-            // $senderID = "QKSendDemo"; 
-            // $to = session('forgotPhoneNumber');
-            // $message = $otpMessage; 
-
-            // $response = $this->smsService->sendSingleSms($senderID, $to, $message);
+           
 
             return redirect()->route('login','student')->with('success', 'Password changed successfully');
         } else {

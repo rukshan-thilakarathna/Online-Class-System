@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class SmsService
 {
@@ -26,7 +28,7 @@ class SmsService
      * @param string $message
      * @return array
      */
-    public function sendSingleSms($senderID, $to, $message)
+    public function sendSingleSms($to, $message)
     {
         // Prepare data to be sent in the request
         $data = [
@@ -37,6 +39,8 @@ class SmsService
 
         // Send POST request
         $response = Http::withHeaders($this->headers)->post($this->url, $data);
+
+        Log::info($response);
 
         // Handle the response
         if ($response->successful()) {
