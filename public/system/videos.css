@@ -1,0 +1,138 @@
+.video-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.video-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+.video-card {
+    background-color: #fff;
+    margin: 10px;
+    margin-left: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+/* .video-card:hover {
+    transform: translateY(-5px);
+} */
+
+.thumbnail-container {
+    position: relative;
+}
+
+.thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: white;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.play-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.video-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.video-title {
+    font-size: 18px;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.video-description {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.video-date {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+.video-date span {
+    font-weight: bold;
+}
+
+/* Watch Button */
+.watch-btn {
+    text-decoration: none;
+    background-color: #ff3d00;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.watch-btn:hover {
+    background-color: #e53500;
+}
+
+/* Open Classes Button */
+.open-classes-btn {
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.open-classes-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Collapsible Class List */
+.class-list {
+    list-style: none;
+    position: absolute;
+    padding: 0;
+    margin-top: 10px;
+    display: none;
+    text-align: left;
+    top: 100%;
+    background: #939393;
+    padding: 10px 15px 16px 10px;
+    height: max-content;
+    left: 0;
+    border-radius: 5px;
+    z-index: 50;
+    width: 100%;
+}
+
+.class-list li {
+    padding: 2px 0;
+    font-size: 14px;
+    color: #333;
+    
+}

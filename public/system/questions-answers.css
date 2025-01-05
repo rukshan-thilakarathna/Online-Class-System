@@ -1,0 +1,30 @@
+.zd1 {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+ol.zu1 {
+    padding: 18px 19px 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+li.zl1 {
+    width: max-content;
+    font-size: 16px;
+    margin: 9px 0;
+    margin-right: 40px;
+}
+
+.zd2 {
+    display: flex;
+    width: 30%;
+}
+
+.zd2 >div {
+   margin-right: 20px;
+}
